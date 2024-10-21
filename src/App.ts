@@ -42,13 +42,13 @@ export class App extends gfx.GfxApp
 
         // Create a grid for the ground plane
         const gridSize = 10;
-        const gridVertices: number[] = [];
+        const gridVertices: gfx.Vector3[] = [];
         for(let i=-gridSize/2; i <= gridSize/2; i++)
         {
-            gridVertices.push(-gridSize/2, 0, i);
-            gridVertices.push(gridSize/2, 0, i);
-            gridVertices.push(i, 0, -gridSize/2);
-            gridVertices.push(i, 0, gridSize/2);
+            gridVertices.push(new gfx.Vector3(-gridSize/2, 0, i));
+            gridVertices.push(new gfx.Vector3(gridSize/2, 0, i));
+            gridVertices.push(new gfx.Vector3(i, 0, -gridSize/2));
+            gridVertices.push(new gfx.Vector3(i, 0, gridSize/2));
         }
 
         const gridLines = new gfx.Line3(gfx.LineMode3.LINES);
