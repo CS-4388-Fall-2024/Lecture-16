@@ -5,10 +5,13 @@
  */ 
 
 import * as gfx from 'gophergfx'
+import { RobotArm } from './RobotArm';
 
 export class App extends gfx.GfxApp
 {
     private cameraControls: gfx.OrbitControls;
+
+    private robotArm: RobotArm;
 
     // --- Create the App class ---
     constructor()
@@ -17,6 +20,8 @@ export class App extends gfx.GfxApp
         super();
 
         this.cameraControls = new gfx.OrbitControls(this.camera);
+
+        this.robotArm = new RobotArm();
     }
 
 
@@ -43,17 +48,29 @@ export class App extends gfx.GfxApp
         // Create a grid for the ground plane
         const gridSize = 10;
         const gridVertices: gfx.Vector3[] = [];
+        // const gridColors: gfx.Color[] = [];
+
         for(let i=-gridSize/2; i <= gridSize/2; i++)
         {
             gridVertices.push(new gfx.Vector3(-gridSize/2, 0, i));
             gridVertices.push(new gfx.Vector3(gridSize/2, 0, i));
             gridVertices.push(new gfx.Vector3(i, 0, -gridSize/2));
             gridVertices.push(new gfx.Vector3(i, 0, gridSize/2));
+
+            // gridColors.push(new gfx.Color(Math.random(), Math.random(), Math.random()));
+            // gridColors.push(new gfx.Color(Math.random(), Math.random(), Math.random()));
+            // gridColors.push(new gfx.Color(Math.random(), Math.random(), Math.random()));
+            // gridColors.push(new gfx.Color(Math.random(), Math.random(), Math.random()));
         }
 
         const gridLines = new gfx.Line3(gfx.LineMode3.LINES);
         gridLines.setVertices(gridVertices);
+        // gridLines.setColors(gridColors);
         this.scene.add(gridLines);
+
+        this.robotArm.createHierarchy();
+        this.robotArm.createGeometry();
+        this.scene.add(this.robotArm);
     }
 
     
